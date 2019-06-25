@@ -7,17 +7,18 @@ macro drop _all
 set linesize 95
 
 if c(username) == "andresyichang" {
-	gl folder = "C:/Users/andresyichang/Dropbox/scale_transformation/dev"
+	gl folder = "C:/Users/andresyichang/Documents/GitHub/scale_transformation/dev"
 	}
 if c(username) == "wb486079" {
-	gl folder = "C:/Users/wb486079/Dropbox/scale_transformation/dev"
+	gl folder = "C:/Users/wb486079/Documents/GitHub/scale_transformation/dev"
 	}
 	
 gl dta "$folder/dta"
+gl out "$folder/out"
 
 cd "$folder"
 
-/*Test*/
+/*Stata Journal Figures*/
 use "$dta/timss_testscores", clear
 
 if ( score1<0 | (score1>1 & score1!=.) ) | ( score2<0 | (score2>1 & score2!=.) ) {
@@ -156,9 +157,11 @@ tw ///
 		xtitle("Transformed Scores", size(small)) ytitle("Original Scores", size(small)) yscale(axis(2) off) ///
 		legend(order(1 "Scores Y1" 2 "Scores Y2" 4 "kdensity Transformed Scores Y1" 5 "kdensity Transformed Scores Y2" 3 "45 degree line") size(small)) ///
 		note("Original Gap Growth=`gap4'" "`type' Gap Growth=`obj'", justification(left) color(black) span pos(7)) ///
-		graphregion(color(white)) ylab(,angle(0) nogrid) legend(region(lc(none) fc(none))) xscale(r(-4(2)4)) xlab(-4(2)4) yscale(r(-4(1)4)) ylab(-4(2)4)
+		graphregion(color(white)) ylab(,angle(0) nogrid) legend(region(lc(none) fc(none))) xscale(r(-4(2)4)) xlab(-4(2)4) yscale(r(-4(1)4)) ylab(-4(2)4) scheme(sj)
 	
-	graph export "../paper/scale_transformation/Transformed_vs_Original.png", replace 
+	graph export "$out/Transformed_vs_Original.png", replace 
+	graph export "$out/Transformed_vs_Original.eps", replace 
+
 	
 reshape long score s_irt st_score, i(id) j(year)
 tw ///
@@ -169,7 +172,9 @@ tw ///
 		, title("Original vs Transformed Gap Evolution", size(medium) justification(left) color(black) span pos(11)) ///
 		xtitle("Years", size(small)) ytitle("Test Scores", size(small)) ///
 		legend(order(1 "Original Gap Evolution" 3 "Transformed Gap Evolution") size(small)) ///
-		note("Note: Top and bottom lines for each color represent sex groups", justification(left) color(black) span pos(7)) ///
-		graphregion(color(white)) ylab(,angle(0) nogrid) legend(region(lc(none) fc(none))) xscale(r(.85 2.15)) xlab(1(1)2) yscale(r(-1(.5)1)) ylab(-1(.5)1)
+		note("Note: Top and bottom lines for each color represent sex groups", justification(left) color(black) span pos(7)) ///		
+		graphregion(color(white)) ylab(,angle(0) nogrid) legend(region(lc(none) fc(none))) xscale(r(.85 2.15)) xlab(1(1)2) yscale(r(-1(.5)1)) ylab(-1(.5)1) scheme(sj)
 	
-	graph export "../paper/scale_transformation/Transformed_vs_Original_Gap.png", replace 
+	graph export "$out/Transformed_vs_Original_Gap.png", replace
+	graph export "$out/Transformed_vs_Original_Gap.eps", replace
+
