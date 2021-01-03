@@ -1,5 +1,5 @@
 {smcl}
-{* *! version 1.0 12dec2017}{...}
+{* *! version 13.0 31dec2020}{...}
 {findalias asfradohelp}{...}
 {vieweralsosee "" "--"}{...}
 {vieweralsosee "[R] help" "help help"}{...}
@@ -44,9 +44,9 @@ between two groups across two points of time. Other optimization objects (i.e. c
 
 {synopt:{opt compg:roup(varname)}}numeric variable that contains a group classification; {bf: required} if type 
 		is 1, 2 or 7 only.{p_end}
-{synopt:{opt cont:rols(varlist)}}include varlist as controls at BOTH periods 1 and 2.{p_end}
-{synopt:{opt controls1(varlist)}}include varlist as controls at period 1 ONLY.{p_end}
-{synopt:{opt controls2(varlist)}}include varlist as controls at period 2 ONLY.{p_end}
+{synopt:{opt cont:rols(varlist)}}include varlist as controls to the baseline model at BOTH periods 1 and 2.{p_end}
+{synopt:{opt controls1(varlist)}}include varlist as controls at period 1 ONLY (i.e. period-specific controls).{p_end}
+{synopt:{opt controls2(varlist)}}include varlist as controls at period 2 ONLY (i.e. period-specific controls).{p_end}
 {synopt:{opt w:eights(varname)}}uses varname as inverse probability weights.{p_end}
 {synopt:{opt iter:ations(integer)}}specifies number of times that the program will find optimal values 
 		using unique random-generated initial parameters; 
@@ -206,8 +206,10 @@ for {bf:"Standard"}, which checks for monotonicity at every possible score value
 transformed to be between 0 and 1. When less precision is needed, monotonicity can be set to {cmd:2} for {bf:"Sample"}, which only checks for monotonicity at the unique
 scores values present in the sample data. If the test scores come from a larger dataset that have scores for multiple years, it is possible to do a more 
 thorough check (but more time consuming) by putting together an external file with all theoretical or observed plausible scores where you want the
-program to check for monotonicity. For the latter, you must set monotonicity to {cmd:3} for {bf:"External"} and include the filename in {opt monofile(filename)}.  
-		
+program to check for monotonicity. For the latter, you must set monotonicity to {cmd:3} for {bf:"External"} and include the filename in {opt monofile(filename)}. The 
+plausible test scores in the {bf:"External"} file should be in the original scale since the program will automatically transform them to the new scale and check 
+for monotonicity at each of these transformed scores.
+
 {phang}
 {opt monofile(filename)} specifies the file to be used when monotonicity type is set to {cmd:3} for {bf:"External"}. This
 option should only be used with {cmd:monotonicity(3)}. You can use .dta, .csv, .xls or .xlsx files. Make sure that .csv, 
@@ -267,3 +269,9 @@ will contain only 30 observations.
 
 {pstd}Andres Yi Chang{p_end}
 {pstd}andresyichang@gmail.com{p_end}
+
+{marker version}{...}
+{title:Version}
+
+{pstd}Last Updated on: December 31, 2020{p_end}
+{pstd}This commnad was build with Stata Version 13{p_end}

@@ -10,13 +10,14 @@ if c(username) == "andresyichang" {
 	gl folder = "C:/Users/andresyichang/Documents/GitHub/scale_transformation/dev"
 	}
 if c(username) == "wb486079" {
-	gl folder = "C:/Users/wb486079/Documents/GitHub/scale_transformation/dev"
+	gl folder = "C:/Users/wb486079/OneDrive - WBG/Documents/GitHub/scale_transformation/dev"
 	}
 	
 gl dta "$folder/dta"
 gl out "$folder/out"
 
 cd "$folder"
+version 15
 
 /*Stata Journal Figures*/
 use "$dta/timss_testscores", clear
@@ -35,6 +36,9 @@ if ( score1<0 | (score1>1 & score1!=.) ) | ( score2<0 | (score2>1 & score2!=.) )
 		}
 
 scale_transformation, type(1) score1(score1) score2(score2) compgroup(sex) iterations(20) maxoptiterations(15) mono(2) seed(562) robust(20)
+
+
+***********browse here for Figure 1**************
 
 gsort -obj
 qui keep if obj!=.

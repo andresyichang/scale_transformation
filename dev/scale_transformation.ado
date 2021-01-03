@@ -31,7 +31,7 @@ prog def scale_transformation
 		di as err "Error: Type should be 1 and 2 for Gap Growth max and min; 3 and 4 for Correlation max and min; 5 and 6 for R-squared max and min; or 7 for Controls Explanation Index max, respectively."
 		e
 		}
-	if inlist(`type',7)==1 & ("`controls'"=="" & "`controls1'"=="" & "`controls2'"=="")  {
+	if inlist(`type',7)==1 & ("`controls1'"=="" & "`controls2'"=="")  {
 		di ""
 		di as err "Error: At least one control variable needed (i.e. controls1 or controls2) for Controls Explanation max"
 		e
@@ -156,7 +156,9 @@ prog def scale_transformation
 		}
 	local timer_status = "On"
 	if "`timeroff'"=="timeroff" local timer_status = "Off"
-	local n_controls: word count `controls'	
+	local n_controls: word count `controls'
+	local n_controls1: word count `controls1'	
+	local n_controls2: word count `controls2'	
 	local weights_status = "No"
 	if "`weights'"!="" local weights_status = "Yes"
 	local robust_status = "No"
@@ -170,6 +172,8 @@ prog def scale_transformation
 	di in y "Singular H Method: " proper("`singhmethod'")
 	di in y "Monotonicity check: `montype'"
 	di in y "Control variables: `n_controls'"
+	di in y "Control t=1 variables: `n_controls1'"
+	di in y "Control t=2 variables: `n_controls2'"
 	di in y "Weights: `weights_status'"
 	di in y "Timer: `timer_status'"
 	di in y "Robust option: `robust_status'"

@@ -8,6 +8,9 @@ set linesize 95
 if c(username) == "andresyichang" {
 	gl folder = "C:/Users/andresyichang/Dropbox/scale_transformation/dev"
 	}
+if c(username) == "wb486079" {
+	gl folder = "C:/Users/wb486079/OneDrive - WBG/Documents/GitHub/scale_transformation/dev"
+	}
 gl dta "$folder/dta"
 
 /*Dta Creation*/
